@@ -1,6 +1,6 @@
 import express from "express";
 import { login, signup } from "../../controller/v1/auth-controller.mjs";
-import { validateRequest } from "../../middleware/validation.middleware.mjs";
+import { validateRequest } from "../../middlewares/validation-middleware.mjs";
 import { validateLogin, validateSingup } from "../../validations/validation-user.mjs";
 import reqValidate from "../../constants/request-validate-constants.mjs";
 
