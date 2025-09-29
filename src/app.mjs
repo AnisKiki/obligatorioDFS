@@ -1,0 +1,60 @@
+import express from "express";
+import dotenv from "dotenv";
+/* import { AgregarTarea, ObtenerListaTareas, ObtenerUnaTarea } from "./stores/toDos.mjs";
+import { validateBody, validateParams } from "./middlewares/validarToDos.mjs";
+import { idParamSchema, newToDoSchema } from "./schemas/toDosSchemas.mjs"; */
+import { connectMongo } from "./config/mongo-config.mjs";
+import { connectRedis } from "./config/redis-config.mjs";
+import rutasPublicas from "./routes/v1/publicas.mjs";
+import v1RutasTareas from "./routes/v1/todos.mjs";
+import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
+import { connect } from "mongoose";
+
+
+//Cargar variables de entorno antes de usar cualquier configuracion que dependa de ellas.
+dotenv.config();
+//Crear intancia de Express para configurar el servidor
+const app = express();
+//Middleware para parsear JSON en el body de las solicitudes
+app.use(express.json());
+//Conectar a la base de datos MongoDB (función asíncrona, no esperamos aquí)
+connectMongo();
+connectRedis();
+//Puerto en el que escuchará el servidor, por defecto 3001 si no está definido en .env
+const port = process.env.PORT ?? 3001;
+
+//Rutas públicas (version 1)
+app.use("/api/v1", rutasPublicas);
+//Rutas protegidas o específicas de "todos"
+app.use("/api/v1/todos", v1RutasTareas);
+//middelware sanitizado
+app.use(xssSanitizer)
+
+app.get("/", (req, res) => {
+    const tareas = ObtenerListaTareas();
+    res.status(200).json({ tareas: tareas });
+});
+//Levantar el servidor y escuchar en el puerto definido
+app.listen(port, () => {
+    console.log(`Server on port ${port}`);
+});
+app.get("/:id", validateParams(idParamSchema), (req, res) => {
+    const idTarea = req.params.id;
+    const tarea = ObtenerUnaTarea(idTarea);
+    res.status(200).json({ tarea });
+});
+app.post("/", validateBody(newToDoSchema), (req, res) => {
+    const tareaNueva = req.body;
+    const tareaConId = AgregarTarea(tareaNueva);
+    res.status(201).json({ tarea: tareaConId });
+});
+//Middleware para manejar rutas no encontradas (404)
+app.use((err, req, res, next) => {
+    console.log('err', err)
+    if (err.message) {
+        res.status(err.statusCode).json({ message: err.message });
+    } else {
+        res.status(500).json({ message: "Error no controlado" });
+    }
+
+});

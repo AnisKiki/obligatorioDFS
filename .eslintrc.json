@@ -1,0 +1,32 @@
+{
+    "extends": "modern", //Puse modern porque cuando instale express siguiendo el pdf decia "Moden" pero el profe uso standar cuando lo instalo.
+    "rules": {
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "quotes": [
+            "warn",
+            "double"
+        ],
+        "indent": [
+            "warn",
+            4
+        ],
+        "no-unused-vars": "warn",
+        "no-multiple-empty-lines": "warn",
+        "comma-dangle": [
+            "warn",
+            "never"
+        ],
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "space-before-function-paren": "off",
+        "eqeqeq": [
+            "error",
+            "smart"
+        ]
+    }
+}
