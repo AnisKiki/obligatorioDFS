@@ -3,10 +3,9 @@ import dotenv from "dotenv";
 /* import { AgregarTarea, ObtenerListaTareas, ObtenerUnaTarea } from "./stores/toDos.mjs";
 import { validateBody, validateParams } from "./middlewares/validarToDos.mjs";
 import { idParamSchema, newToDoSchema } from "./schemas/toDosSchemas.mjs"; */
-import { connectMongo } from "./config/mongo-config.mjs";
-import { connectRedis } from "./config/redis-config.mjs";
+import { connectMongo } from "./configuracion/mongo-confi.mjs";
+import { connectRedis } from "./configuracion/redis-config.mjs";
 import rutasPublicas from "./routes/v1/publicas.mjs";
-import v1RutasTareas from "./routes/v1/todos.mjs";
 import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
 import { connect } from "mongoose";
 
@@ -25,8 +24,6 @@ const port = process.env.PORT ?? 3001;
 
 //Rutas públicas (version 1)
 app.use("/api/v1", rutasPublicas);
-//Rutas protegidas o específicas de "todos"
-app.use("/api/v1/todos", v1RutasTareas);
 //middelware sanitizado
 app.use(xssSanitizer)
 
@@ -38,16 +35,7 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`Server on port ${port}`);
 });
-app.get("/:id", validateParams(idParamSchema), (req, res) => {
-    const idTarea = req.params.id;
-    const tarea = ObtenerUnaTarea(idTarea);
-    res.status(200).json({ tarea });
-});
-app.post("/", validateBody(newToDoSchema), (req, res) => {
-    const tareaNueva = req.body;
-    const tareaConId = AgregarTarea(tareaNueva);
-    res.status(201).json({ tarea: tareaConId });
-});
+
 //Middleware para manejar rutas no encontradas (404)
 app.use((err, req, res, next) => {
     console.log('err', err)
