@@ -1,5 +1,5 @@
 //Importamos el modelo de usuario definido con Mongoose
-import User from "../../model/mongo/user.mjs";
+import User from "../../model/user.mjs";
 
 //Objeto que contiene funciones para interactuar con la base de datos MongoDB
 const userMongoRepository = {
