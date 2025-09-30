@@ -24,7 +24,7 @@ const userMongoRepository = {
             delete userCreado._doc.password;
             return userCreado;
         } catch (error) {
-            console.log('No se pudo crear la tarea en mongo', error)
+            console.log('No se pudo crear el usuario en mongo', error)
         }
     },
     //Actualizar los datos de un usuario por su ID
