@@ -9,7 +9,7 @@ export async function signup(req, res) {
     try {
         const { name, email, password } = req.body;
         //Verificar si ya existe el email
-        const existing = await userRepository.findUserByEmail(email);
+        const existing = await userRepository.getUserByEmail(email);
         if (existing) return res.status(400).json({ message: "Email ya registrado" });
         //Hashear contraseña
         const hashed = await bcrypt.hash(password, 10);

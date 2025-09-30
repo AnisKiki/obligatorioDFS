@@ -1,5 +1,5 @@
 //Importamos el modelo de usuario definido con Mongoose
-import User from "../../model/mongo/user.mjs";
+import User from "../../model/user.mjs";
 
 //Objeto que contiene funciones para interactuar con la base de datos MongoDB
 const userMongoRepository = {
@@ -12,21 +12,23 @@ const userMongoRepository = {
         return User.findById(data).select("-password");
     },
     //Buscar un usuario por su dirección de correo electrónico. necesitamos el usuario con su password
-    async getUserByEmail(data) {
-        console.log('data', data)
-        return User.findOne(data);
+    async getUserByEmail(email) {
+        console.log('email', email)
+        return User.findOne({ email });
     },
     //Crear un nuevo usuario con los datos proporcionados
-    async createUser(data) {
+    async create(data) {
         try {
             const user = new User(data)
             const userCreado = await user.save();
             delete userCreado._doc.password;
             return userCreado;
         } catch (error) {
-            console.log('No se pudo crear la tarea en mongo', error)
+            console.log('No se pudo crear el usuario en mongo', error)
         }
     },
+    
+
     //Actualizar los datos de un usuario por su ID
     //El parámetro { new: true } indica que se devuelva el documento actualizado
     async update(id, data) {

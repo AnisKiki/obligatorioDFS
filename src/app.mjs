@@ -27,10 +27,6 @@ app.use("/api/v1", rutasPublicas);
 //middelware sanitizado
 app.use(xssSanitizer)
 
-app.get("/", (req, res) => {
-    const tareas = ObtenerListaTareas();
-    res.status(200).json({ tareas: tareas });
-});
 //Levantar el servidor y escuchar en el puerto definido
 app.listen(port, () => {
     console.log(`Server on port ${port}`);
