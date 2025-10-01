@@ -4,7 +4,12 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
-    planId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Plan" },
+    plan: { 
+        type: String, 
+        enum: ["Premium", "Plus"], 
+        required: true, 
+        default: "user" 
+    },
     role: { 
         type: String, 
         enum: ["user", "admin", "moderator"], 
