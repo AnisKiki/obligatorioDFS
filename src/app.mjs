@@ -19,8 +19,8 @@ app.use(express.json());
 //Conectar a la base de datos MongoDB (función asíncrona, no esperamos aquí)
 connectMongo();
 connectRedis();
-//Puerto en el que escuchará el servidor, por defecto 3001 si no está definido en .env
-const port = process.env.PORT ?? 3001;
+//Puerto en el que escuchará el servidor, por defecto 3000 si no está definido en .env
+const port = process.env.PORT ?? 3000;
 
 //Rutas públicas (version 1)
 app.use("/api/v1", rutasPublicas);
