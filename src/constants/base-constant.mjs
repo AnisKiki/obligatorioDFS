@@ -2,8 +2,7 @@ import userMongoRepository from "../repositories/mongo-repository/user-mon-Repos
 
 
 export const baseConstant = {
-    MONGO: "mongo",
-    MYSQL: "mysql"
+    MONGO: "local",
 }
 
 export const createTodo = async (req, res) => {
