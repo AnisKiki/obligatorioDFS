@@ -3,7 +3,8 @@ import Joi from "joi"
 export const validateAuth = Joi.object({
     id: Joi.string().required(),
     email: Joi.string().regex(/.+@.+\..+/).required(),
-    iat: Joi.number().integer()
+    iat: Joi.number().integer(),
+    exp: Joi.number().integer()
 });
 
 export const validateSingup = Joi.object({
@@ -16,3 +17,7 @@ export const validateLogin = Joi.object({
     email: Joi.string().regex(/.+@.+\..+/).required(),
     password: Joi.string().min(3).max(20).required()
 });
+
+export const validateChangePlan = Joi.object({
+    plan: Joi.string().valid("premium", "plus").required()
+}).required();
