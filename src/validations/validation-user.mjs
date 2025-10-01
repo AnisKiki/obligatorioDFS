@@ -10,7 +10,6 @@ export const validateSingup = Joi.object({
     name: Joi.string().min(3).max(40).required(),
     email: Joi.string().regex(/.+@.+\..+/).required(),
     password: Joi.string().min(3).max(20).required(),
-    planId: Joi.number().integer().required()
 });
 
 export const validateLogin = Joi.object({
