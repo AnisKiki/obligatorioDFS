@@ -12,6 +12,8 @@ let userRepository;
 }*/
 if (process.env.BASE_IN_USE == baseConstant.MONGO) {
   userRepository = userMongoRepository;
+}else{
+  userRepository = userMongoRepository;
 }
 
 export default userRepository; 
