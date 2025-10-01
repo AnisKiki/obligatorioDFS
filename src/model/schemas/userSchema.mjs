@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true },
     plan: { 
         type: String, 
-        enum: ["Premium", "Plus"], 
+        enum: ["premium", "plus"], 
         required: true, 
-        default: "user" 
+        default: "plus" 
     },
     role: { 
         type: String, 
-        enum: ["user", "admin", "moderator"], 
+        enum: ["user", "admin"], 
         required: true, 
         default: "user" 
     }
