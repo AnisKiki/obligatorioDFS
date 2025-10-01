@@ -1,13 +1,12 @@
 import express from "express";
-const v1RutasUsuarios = express.Router();
-import { cambiarPlan } from "../../controller/user-controller.mjs";
-import { validateAuth } from "../../validations/validation-user.mjs";
+import { cambiarPlan } from "../../controller/v1/user-controller.mjs";
+import { validateRequest } from "../../middlewares/validation-middleware.mjs";
 import { authMiddleware } from "../../middlewares/auth-middleware.mjs";
-const routes = express.Router();
+import { validateChangePlan } from "../../validations/validation-user.mjs";
+import reqValidate from "../../constants/request-validate-constants.mjs";
+const rutasUsuario = express.Router();
 
-routes.post("/cambiar-plan/:userId", authMiddleware, cambiarPlan);
+rutasUsuario.patch("/cambiar-plan/", authMiddleware, validateRequest(validateChangePlan, reqValidate.BODY), cambiarPlan);
 
-// v1RutasUsuarios.put("/:id", actualizarUsuario);
-// v1RutasUsuarios.patch("/:id", modificarUsuario);
 
-export default v1RutasUsuarios;
+export default rutasUsuario;
