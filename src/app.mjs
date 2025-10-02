@@ -6,6 +6,7 @@ import { idParamSchema, newToDoSchema } from "./schemas/toDosSchemas.mjs"; */
 import { connectMongo } from "./config/mongo-config.mjs";
 import { connectRedis } from "./config/redis-config.mjs";
 import rutasPublicas from "./routes/v1/publicas.mjs";
+import rutasUsuario from "./routes/v1/users.mjs";
 import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
 import { connect } from "mongoose";
 
@@ -24,6 +25,10 @@ const port = process.env.PORT ?? 3000;
 
 //Rutas públicas (version 1)
 app.use("/api/v1", rutasPublicas);
+
+//Rutas usuario (version 1)
+app.use("/api/v1/usuario", rutasUsuario);
+
 //middelware sanitizado
 app.use(xssSanitizer)
 
