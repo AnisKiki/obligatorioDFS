@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Category from "./category.mjs";
+import Category from "./categorySchema.mjs";
 
 const bookSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -13,4 +13,4 @@ const bookSchema = new mongoose.Schema({
     timestamps: true
 });
 
-export default mongoose.model("Book", bookSchema);
+export default bookSchema;

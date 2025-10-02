@@ -4,13 +4,22 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
+    plan: { 
+        type: String, 
+        enum: ["premium", "plus"], 
+        required: true, 
+        default: "plus" 
+    },
     role: { 
         type: String, 
-        enum: ["user", "admin", "moderator"], 
+        enum: ["user", "admin"], 
         required: true, 
         default: "user" 
     }
 }, {
     timestamps: true
 });
-export default mongoose.model("User", userSchema);
+
+userSchema.index({ email: 1 }, { unique: true });
+
+export default userSchema;

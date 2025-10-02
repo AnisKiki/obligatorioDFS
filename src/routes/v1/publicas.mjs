@@ -6,10 +6,7 @@ import reqValidate from "../../constants/request-validate-constants.mjs";
 
 const rutasPublicas = express.Router();
 
-//Se define la ruta para login y como segundo parametro se indica el controlador
-rutasPublicas.post("/login", login);
-
-//Se define la ruta para registro y como segundo parametro se indica el controlador
-rutasPublicas.post("/singup", signup);
+rutasPublicas.post("/signup", validateRequest(validateSingup, reqValidate.BODY), signup);
+rutasPublicas.post("/login", validateRequest(validateLogin, reqValidate.BODY), login);
 
 export default rutasPublicas;

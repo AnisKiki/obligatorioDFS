@@ -3,9 +3,10 @@ import dotenv from "dotenv";
 /* import { AgregarTarea, ObtenerListaTareas, ObtenerUnaTarea } from "./stores/toDos.mjs";
 import { validateBody, validateParams } from "./middlewares/validarToDos.mjs";
 import { idParamSchema, newToDoSchema } from "./schemas/toDosSchemas.mjs"; */
-import { connectMongo } from "./configuracion/mongo-confi.mjs";
-import { connectRedis } from "./configuracion/redis-config.mjs";
+import { connectMongo } from "./config/mongo-config.mjs";
+import { connectRedis } from "./config/redis-config.mjs";
 import rutasPublicas from "./routes/v1/publicas.mjs";
+import rutasUsuario from "./routes/v1/users.mjs";
 import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
 import { connect } from "mongoose";
 
@@ -19,18 +20,18 @@ app.use(express.json());
 //Conectar a la base de datos MongoDB (función asíncrona, no esperamos aquí)
 connectMongo();
 connectRedis();
-//Puerto en el que escuchará el servidor, por defecto 3001 si no está definido en .env
-const port = process.env.PORT ?? 3001;
+//Puerto en el que escuchará el servidor, por defecto 3000 si no está definido en .env
+const port = process.env.PORT ?? 3000;
 
 //Rutas públicas (version 1)
 app.use("/api/v1", rutasPublicas);
+
+//Rutas usuario (version 1)
+app.use("/api/v1/usuario", rutasUsuario);
+
 //middelware sanitizado
 app.use(xssSanitizer)
 
-app.get("/", (req, res) => {
-    const tareas = ObtenerListaTareas();
-    res.status(200).json({ tareas: tareas });
-});
 //Levantar el servidor y escuchar en el puerto definido
 app.listen(port, () => {
     console.log(`Server on port ${port}`);
