@@ -24,6 +24,7 @@ export async function signup(req, res) {
 
 export async function login(req, res) {
     try {
+        //hola
         const { email, password } = req.body;
         const user = await userRepository.getUserByEmail(email);
         if (!user) return res.status(400).json({ message: "Usuario no encontrado" });
