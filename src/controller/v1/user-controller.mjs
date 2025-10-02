@@ -17,4 +17,3 @@ export async function cambiarPlan(req, res) {
         res.status(500).json({ message: "Error al cambiar el plan", error });
     }
 }
-
