@@ -6,26 +6,20 @@ import { validateAuth } from "../validations/validation-user.mjs";
 
 //Obtiene la clave secreta desde las variables de entorno. Esta clave se usará para verificar la autenticidad del token JWT
 /* const SECRET = process.env.JWT_SECRET; */
-const { PASS_JWT } = process.env;
+const SECRET = process.env.JWT_SECRET;
 
 //Middleware de autenticación con JWT
 export function authMiddleware(req, res, next) {
     try {
-        //Obtiene el encabezado Authorization de la solicitud
         const authHeader = req.headers.authorization;
-        //Si no existe el encabezado, se devuelve un error 401 (No autorizado)
         if (!authHeader) return res.status(401).json({ message: "No token" });
-        //El encabezado debe tener el formato "Bearer <token>". Separamos la cadena y obtenemos solo el token (segunda parte)
-        const token = authHeader.split(" ")[1];
-        //Verifica que el token sea válido usando la clave secreta
-        const decoded = jwt.verify(token, SECRET);
+        const token = authHeader.split(" ")[1];      
+        const decoded = jwt.verify(token, SECRET);    
         const { error, value } = validateAuth.validate(decoded, { abortEarly: false });
         if (error) {
             res.status(401).json({ errors: error.details.map(d => d.message) })
         } else {
             //se asigna el usuario al req user
-            console.log('value', value)
-
             req.user = value;
             //se sigue adelante con next
             next();
