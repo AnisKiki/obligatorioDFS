@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node --watch ./src/app.mjs"
+    "start": "node --watch ./src/app.mjs",
+    "dev": "node --watch ./src/app.mjs",
+    "build": "echo 'Build completed'",
+    "vercel-build": "echo 'Vercel build completed'"
   },
   "keywords": [],
   "author": "",
