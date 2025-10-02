@@ -44,6 +44,5 @@ const userMongoRepository = {
         })
     }
 };
-
 // Exportamos el repositorio para poder utilizarlo en otras partes de la aplicación
 export default userMongoRepository;
