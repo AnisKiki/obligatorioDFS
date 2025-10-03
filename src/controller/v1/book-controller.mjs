@@ -27,3 +27,13 @@ export async function createBook(req, res) {
         res.status(500).json({ error: err.message });
     }
 }
+export async function deleteBook(req, res) {
+    try {
+        const { id } = req.params;
+        const book = await bookRepository.delete(id);
+        if (!book) return res.status(404).json({ message: "Libro no encontrado" });
+        res.status(200).json({ message: "Libro eliminado correctamente" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
