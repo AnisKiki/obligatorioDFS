@@ -1,12 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
-/* import { AgregarTarea, ObtenerListaTareas, ObtenerUnaTarea } from "./stores/toDos.mjs";
-import { validateBody, validateParams } from "./middlewares/validarToDos.mjs";
-import { idParamSchema, newToDoSchema } from "./schemas/toDosSchemas.mjs"; */
 import { connectMongo } from "./config/mongo-config.mjs";
 import { connectRedis } from "./config/redis-config.mjs";
 import rutasPublicas from "./routes/v1/publicas.mjs";
 import rutasUsuario from "./routes/v1/users.mjs";
+import rutasaBooks from "./routes/v1/books.mjs";
 import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
 import { connect } from "mongoose";
 
@@ -28,6 +26,9 @@ app.use("/api/v1", rutasPublicas);
 
 //Rutas usuario (version 1)
 app.use("/api/v1/usuario", rutasUsuario);
+
+//Rutas libros (version 1)
+app.use("/api/v1/libros", rutasaBooks);
 
 //middelware sanitizado
 app.use(xssSanitizer)
