@@ -1,10 +1,11 @@
 import Joi from "joi"
+const MinFechLibro = "01-01-1800";
 
 export const validateCreate = Joi.object({
-    titlee: Joi.string().min(3).max(40).required(),
+    title: Joi.string().min(3).max(40).required(),
     authors: Joi.string().min(3).max(40).required(),
-    publishedDate: Joi.date().min("1800-01-01").max("now").required(),
-    description: Joi.string().min(3).max(40).required(),
+    publishedDate: Joi.date().min(MinFechLibro).max("now").required(),
+    description: Joi.string().min(3).max(1000).required(),
     categories: Joi.string().min(3).max(40).required()
 });
 export const validateDelete = Joi.object({
