@@ -15,7 +15,10 @@ if (MONGO_BD_IN_USE == baseConstant.MONGO) {
 export const connectMongo = async () => {
     try {
         mongoose.connect(MONGO_URI, {
+            maxPoolSize: 10,
             serverSelectionTimeoutMS: 20000,
+            socketTimeoutMS: 45000,
+            bufferCommands: false,
             dbName: "test",
         })
         console.log('Levanto Mongo')
