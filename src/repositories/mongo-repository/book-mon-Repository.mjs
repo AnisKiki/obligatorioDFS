@@ -18,4 +18,9 @@ const bookMongoRepository = {
             console.log('No se pudo crear el libro en mongo', error)
         }
     },
+    async delete(id) {
+        return await Book.findByIdAndDelete(id);
+    },
 };
+
+export default bookMongoRepository;
