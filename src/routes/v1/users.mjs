@@ -8,5 +8,4 @@ const rutasUsuario = express.Router();
 
 rutasUsuario.patch("/cambiar-plan/", authMiddleware, validateRequest(validateChangePlan, reqValidate.BODY), cambiarPlan);
 
-
 export default rutasUsuario;
