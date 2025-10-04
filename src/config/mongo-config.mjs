@@ -14,7 +14,13 @@ if (MONGO_BD_IN_USE == baseConstant.MONGO) {
 
 export const connectMongo = async () => {
     try {
-        mongoose.connect(MONGO_URI, {})
+        mongoose.connect(MONGO_URI, {
+            maxPoolSize: 10,
+            serverSelectionTimeoutMS: 20000,
+            socketTimeoutMS: 45000,
+            bufferCommands: false,
+            dbName: "test",
+        })
         console.log('Levanto Mongo')
     } catch (err) {
         console.log('Hubo un error en la conexion de mongo', err);
