@@ -70,9 +70,4 @@ export const safeRedisOperation = async (operation) => {
     }
 }
 
-
-
-
-
-
 // connectRedis();
