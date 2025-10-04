@@ -6,47 +6,51 @@ import rutasPublicas from "./routes/v1/publicas.mjs";
 import rutasUsuario from "./routes/v1/users.mjs";
 import rutasaBooks from "./routes/v1/books.mjs";
 import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
-import { connect } from "mongoose";
 
-
-//Cargar variables de entorno antes de usar cualquier configuracion que dependa de ellas.
 dotenv.config();
-//Crear intancia de Express para configurar el servidor
 const app = express();
-//Middleware para parsear JSON en el body de las solicitudes
+
 app.use(express.json());
-//Conectar a la base de datos MongoDB (función asíncrona, no esperamos aquí)
-connectMongo();
-connectRedis();
-//Puerto en el que escuchará el servidor, por defecto 3000 si no está definido en .env
+app.use(xssSanitizer);
+
+// Conectar a las bases de datos de forma asíncrona
+(async () => {
+    try {
+        await connectMongo();
+        await connectRedis();
+        console.log('Databases connected');
+    } catch (error) {
+        console.error('Database connection failed:', error);
+        // En Vercel, continúa sin hacer crash de la app
+    }
+})();
+
 const port = process.env.PORT ?? 3000;
 
-//Rutas públicas (version 1)
 app.use("/api/v1", rutasPublicas);
-
-//Rutas usuario (version 1)
 app.use("/api/v1/usuario", rutasUsuario);
-
-//Rutas libros (version 1)
 app.use("/api/v1/libros", rutasaBooks);
 
-//middelware sanitizado
-app.use(xssSanitizer)
-
-//Levantar el servidor y escuchar en el puerto definido
-app.listen(port, () => {
-    console.log(`Server on port ${port}`);
+// Middleware para rutas no encontradas
+app.use((req, res) => {
+    res.status(404).json({ message: "Ruta no encontrada" });
 });
 
-//Middleware para manejar rutas no encontradas (404)
+// Middleware de manejo de errores
 app.use((err, req, res, next) => {
-    console.log('err', err)
-    if (err.message) {
-        res.status(err.statusCode).json({ message: err.message });
-    } else {
-        res.status(500).json({ message: "Error no controlado" });
-    }
+    console.error('Error:', err);
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Error interno del servidor";
+    res.status(statusCode).json({ message });
+});
 
+// Manejo de promesas rechazadas
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+app.listen(port, () => {
+    console.log(`Server on port ${port}`);
 });
 
 export default app;
