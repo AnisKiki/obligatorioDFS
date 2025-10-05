@@ -29,5 +29,7 @@ const bookSchema = new mongoose.Schema({
 { 
     timestamps: true
 });
+//Para que no se repitan libros de titulo y autor
+bookSchema.index({ title: 1, authors: 1 }, { unique: true });
 
 export default bookSchema;
