@@ -14,11 +14,18 @@ const bookMongoRepository = {
     async getBookById(id) {
         return Book.findById(id);
     },
+    async update(id, data) {
+        return await Book.findByIdAndUpdate(id, 
+        data, { 
+            new: true,
+            runValidators: true 
+        });
+    },
     async create(data) {
         try {
+            console.log('Creating book with data:', data);
             const book = new Book(data)
             const bookCreado = await book.save();
-            /* delete bookCreado._doc.password; */
             return bookCreado;
         } catch (error) {
             console.log('No se pudo crear el libro en mongo', error)
@@ -28,5 +35,4 @@ const bookMongoRepository = {
         return await Book.findByIdAndDelete(id);
     },
 };
-
 export default bookMongoRepository;

@@ -2,8 +2,7 @@ export const validateRequest = (schema, reqValidate) => {
     //devuelve una funcion clausura que es en realidad un nuevo middleware
     //automaticamente quien use el middleware le inyecta los parametros req res next
     return (req, res, next) => {
-        // Verificación explícita para undefined
-        if (req[reqValidate] === undefined) {
+        if (req[reqValidate] === undefined) { // Verificación explícita para undefined
             return res.status(400).json({ 
                 errors: [`${reqValidate} es requerido. Asegúrate de enviar Content-Type: application/json`] 
             });
