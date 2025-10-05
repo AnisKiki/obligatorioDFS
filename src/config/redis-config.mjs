@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 console.log("REDIS_URI desde .env:", process.env.REDIS_URI ? "✅ Configurado" : "❌ No encontrado");
-console.log("Entorno:", process.env.NODE_ENV || "desarrollo");
+//console.log("Entorno:", process.env.NODE_ENV || "desarrollo");
 
 export const redisClient = createClient({
     url: process.env.REDIS_URI || "redis://localhost:6379",
