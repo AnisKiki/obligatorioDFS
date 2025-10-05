@@ -4,7 +4,8 @@ export const validateAuth = Joi.object({
     id: Joi.string().required(),
     email: Joi.string().regex(/.+@.+\..+/).required(),
     iat: Joi.number().integer(),
-    exp: Joi.number().integer()
+    exp: Joi.number().integer(),
+    role: Joi.string().valid("user", "admin").required()
 });
 
 export const validateSingup = Joi.object({
