@@ -19,7 +19,7 @@ export async function signup(req, res) {
         const token = jwt.sign({ id: user._id, email: user.email , role: user.role }, SECRET, { expiresIn: "1h" });
         res.status(201).json({token});
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Ocurrió un error al registrar el usuario, intentelo de nuevo más tarde" }); 
     }
 }
 
@@ -35,6 +35,6 @@ export async function login(req, res) {
         const token = jwt.sign({ id: user._id, email: user.email , role: user.role }, SECRET, { expiresIn: "1h" });
         res.json({ token });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Ocurrió un error al iniciar sesión, intentelo de nuevo más tarde" });
     }
 }
