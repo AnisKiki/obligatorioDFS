@@ -14,6 +14,6 @@ export async function cambiarPlan(req, res) {
         res.status(200).json({ message: "Plan cambiado exitosamente", user: userUpdated });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al cambiar el plan", error });
+        res.status(500).json({ error: "Ocurrió un error al cambiar el plan, intentelo de nuevo más tarde" });
     }
 }

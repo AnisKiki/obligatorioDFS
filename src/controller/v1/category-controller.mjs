@@ -7,6 +7,6 @@ export async function getListOfCategories(req, res) {
         if (!category || category.length === 0) return res.status(200).json({ message: "No existen categorias por el momento" });
         res.status(200).json(category);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Ocurrió un error al obtener la lista de categorías, intentelo de nuevo más tarde" });
     }
 }

@@ -19,7 +19,7 @@ export const connectMongo = async () => {
             serverSelectionTimeoutMS: 20000,
             socketTimeoutMS: 45000,
             bufferCommands: false,
-            dbName: "test",
+            dbName: MONGO_DB,
         })
         console.log('Levanto Mongo')
     } catch (err) {

@@ -42,7 +42,7 @@ export async function createBook(req, res) {
             categories: book.categories
         });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Ocurrió un error al crear el libro, intentelo de nuevo más tarde" });
     }
 }
 export async function getListOfBooks(req, res) {
@@ -52,7 +52,7 @@ export async function getListOfBooks(req, res) {
         if (!books || books.length === 0) return res.status(200).json({ message: "El usuario no tiene libros" });
         res.status(200).json(books);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Ocurrió un error al obtener la lista de libros, intentelo de nuevo más tarde" });
     }
 }
 export async function getBookDetails(req, res) {
@@ -94,6 +94,6 @@ export async function deleteBook(req, res) {
         await bookRepository.delete(id);
         res.status(200).json({ message: "Libro eliminado correctamente" });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Ocurrió un error al eliminar el libro, intentelo de nuevo más tarde" });
     }
 }
