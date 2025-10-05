@@ -1,5 +1,5 @@
 const reqValidate = {
     BODY: "body",
-    PARAM: "param"
+    PARAM: "params" // Changed from "param" to "params" to match Express.js convention
 }
 export default reqValidate;

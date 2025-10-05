@@ -8,6 +8,6 @@ import reqValidate from "../../constants/request-validate-constants.mjs";
 const rutasLibros = express.Router();
 
 rutasLibros.post("/alta-libro/", authMiddleware, validateRequest(validateCreate, reqValidate.BODY), createBook);
-rutasLibros.delete("/baja-libro/:id", authMiddleware, validateRequest(validateDelete, reqValidate.BODY), deleteBook);
+rutasLibros.delete("/baja-libro/:id", authMiddleware, validateRequest(validateDelete, reqValidate.PARAM), deleteBook);
 
 export default rutasLibros;
