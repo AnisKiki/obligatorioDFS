@@ -3,10 +3,6 @@ import { validateRequest } from "../../middlewares/validation-middleware.mjs";
 import { authMiddleware } from "../../middlewares/auth-middleware.mjs";
 import { validateCreate, validateDelete, validateUpdate } from "../../validations/validation-book.mjs";
 import { createBook, deleteBook, getListOfBooks, getBookDetails, editBook } from "../../controller/v1/book-controller.mjs";
-/* import { deleteBook } from "../../controller/v1/book-controller.mjs";
-import { getListOfBooks } from "../../controller/v1/book-controller.mjs";
-import { getBookDetails } from "../../controller/v1/book-controller.mjs";
-import { editBook } from "../../controller/v1/book-controller.mjs"; */
 import reqValidate from "../../constants/request-validate-constants.mjs";
 const rutasLibros = express.Router();
 

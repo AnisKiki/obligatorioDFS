@@ -8,7 +8,6 @@ const categoryMongoRepository = {
         console.log('id', id)
         return await Category.findOne({ _id: id });
     },
-
     async create(data) {
         try {
             const category = new Category(data);
@@ -18,9 +17,5 @@ const categoryMongoRepository = {
             console.log('No se pudo crear la categoría en mongo', error);
         }
     },
-
 };
-
-
-
 export default categoryMongoRepository;

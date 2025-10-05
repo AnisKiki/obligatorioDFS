@@ -28,7 +28,6 @@ const userMongoRepository = {
         }
     },
     
-
     //Actualizar los datos de un usuario por su ID
     //El parámetro { new: true } indica que se devuelva el documento actualizado
     async update(id, data) {
