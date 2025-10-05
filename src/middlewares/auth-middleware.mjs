@@ -19,13 +19,10 @@ export function authMiddleware(req, res, next) {
         if (error) {
             res.status(401).json({ errors: error.details.map(d => d.message) })
         } else {
-            //se asigna el usuario al req user
-            req.user = value;
-            //se sigue adelante con next
+            req.user = value; //se asigna el usuario al req user
             next();
         }
     } catch (err) {
-        //Si el token es inválido o ha expirado, devuelve error 401
-        res.status(401).json({ message: "Token inválido" });
+        res.status(401).json({ message: "Token inválido" }); //Si el token es inválido o ha expirado
     }
 }

@@ -4,7 +4,6 @@ import "dotenv/config";
 
 export async function createBook(req, res) {
     try {
-        console.log(req.body);
         const { title, authors, publishedDate, description, categories } = req.body;
         const user = req.user.id;
         const userPlan = req.user.plan;
@@ -47,7 +46,6 @@ export async function createBook(req, res) {
 }
 export async function getListOfBooks(req, res) {
     try {
-        console.log(req);
         const books = await bookRepository.getBooksByUser(req.user.id); //depende de si es todos los libros o los del usuario
         if (!books || books.length === 0) return res.status(200).json({ message: "El usuario no tiene libros" });
         res.status(200).json(books);
@@ -78,7 +76,7 @@ export async function editBook(req, res) {
         if (book.userId.toString() !== userId) return res.status(403).json({ message: "No autorizado para editar este libro" });
 
         const bookUpd = await bookRepository.update(req.params.id, req.body);
-        res.status(200).json("Libro editado exitosamente", bookUpd);
+        res.status(200).json( {message: "Libro editado exitosamente", bookUpd });
     }catch (err) {
         res.status(500).json({ error: err.message });
     }
