@@ -5,6 +5,7 @@ import { connectRedis } from "./config/redis-config.mjs";
 import rutasPublicas from "./routes/v1/publicas.mjs";
 import rutasUsuario from "./routes/v1/users.mjs";
 import rutasaBooks from "./routes/v1/books.mjs";
+import rutasCategorias from "./routes/v1/categories.mjs";
 import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
 
 dotenv.config();
@@ -30,6 +31,7 @@ const port = process.env.PORT ?? 3000;
 app.use("/api/v1", rutasPublicas);
 app.use("/api/v1/usuario", rutasUsuario);
 app.use("/api/v1/libros", rutasaBooks);
+app.use("/api/v1/categorias", rutasCategorias);
 
 // Middleware para rutas no encontradas
 app.use((req, res) => {
