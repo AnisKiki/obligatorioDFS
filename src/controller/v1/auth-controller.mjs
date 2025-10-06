@@ -24,10 +24,10 @@ export async function login(req, res) {
     try {
         const { email, password } = req.body;
         const user = await userRepository.getUserByEmail(email);
-        if (!user) return res.status(400).json({ message: "Usuario no encontrado" });
+        if (!user) return res.status(401).json({ message: "Email o contraseña no válidos" });
 
         const valid = await bcrypt.compare(password, user.password);
-        if (!valid) return res.status(400).json({ message: "Contraseña incorrecta" });
+        if (!valid) return res.status(401).json({ message: "Email o contraseña no válidos" });
 
         const token = jwt.sign({ id: user._id, email: user.email , role: user.role }, SECRET, { expiresIn: "1h" });
         res.json({ token });
