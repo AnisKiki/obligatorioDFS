@@ -12,12 +12,12 @@ const SECRET = process.env.JWT_SECRET;
 export function authMiddleware(req, res, next) {
     try {
         const authHeader = req.headers.authorization;
-        if (!authHeader) return res.status(401).json({ message: "No token" });
+        if (!authHeader) return res.status(401).json({ message: "Debe ingresar al sistema para acceder a esta funcionalidad" });
         const token = authHeader.split(" ")[1];      
         const decoded = jwt.verify(token, SECRET);    
         const { error, value } = validateAuth.validate(decoded, { abortEarly: false });
         if (error) {
-            res.status(401).json({ errors: error.details.map(d => d.message) })
+            res.status(401).json({ errors: "Ocurrió un error de validación" })
         } else {
             req.user = value; //se asigna el usuario al req user
             next();
