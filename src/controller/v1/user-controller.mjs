@@ -6,6 +6,14 @@ export async function cambiarPlan(req, res) {
         const user = req.user;  // req.user ya contiene el objeto completo del usuario
         const { plan } = req.body;  // Extraer el plan del body de la petición
         
+        const viejo = await userRepository.getUserById(user.id);
+        if (!viejo) {
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        }
+        if (viejo.plan === plan) {
+            return res.status(409).json({ message: `El usuario ya tiene el plan ${plan}` });
+        }
+
         const userUpdated = await userRepository.update(user.id, { plan });
         if (!userUpdated) {
             return res.status(404).json({ message: "Usuario no encontrado" });
