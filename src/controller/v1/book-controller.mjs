@@ -13,16 +13,16 @@ export async function createBook(req, res) {
             const userBooks = await bookRepository.getBooksByUser(userId);
             if (userBooks.length >= 10) {
                 return res.status(403).json({
-                    message: "Límite alcanzado: los usuarios Plus solo pueden crear hasta 10 libros"
+                    error: "Límite alcanzado: los usuarios Plus solo pueden crear hasta 10 libros"
                 });
             }
         }
 
         const existing = await bookRepository.getBookByTitleAndAuthor(title, authors); //Verificar si ya existe el titulo
-        if (existing) return res.status(400).json({ message: "Libro ya existente" });
+        if (existing) return res.status(400).json({ error: "Libro ya existente" });
 
         const category = await categoryRepository.getCategoryById(categories); //Verificar si la categoría existe
-        if (!category) return res.status(404).json({ message: "Categoría no encontrada" });
+        if (!category) return res.status(404).json({ error: "Categoría no encontrada" });
 
         const book = await bookRepository.create({  //Crear libro
             title, 
@@ -42,7 +42,6 @@ export async function createBook(req, res) {
             categories: book.categories
         });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ error: "Ocurrió un error al crear el libro, intentelo de nuevo más tarde" });
     }
 }
@@ -61,8 +60,8 @@ export async function getBookDetails(req, res) {
         const userId = req.user.id;
         const book = await bookRepository.getBookById(id);
 
-        if (!book) return res.status(404).json({ message: "Libro no encontrado" });
-        if (book.userId.toString() !== userId) return res.status(403).json({ message: "No autorizado para ver este libro" });
+        if (!book) return res.status(404).json({ error: "Libro no encontrado" });
+        if (book.userId.toString() !== userId) return res.status(403).json({ error: "No autorizado para ver este libro" });
         res.status(200).json(book);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -73,10 +72,14 @@ export async function editBook(req, res) {
         const { id } = req.params;
         const userId = req.user.id;
         const book = await bookRepository.getBookById(id);
+        const category = await categoryRepository.getCategoryById(req.body.categories); 
 
-        if (!book) return res.status(404).json({ message: "Libro no encontrado" });
-        if (book.userId.toString() !== userId) return res.status(403).json({ message: "No autorizado para editar este libro" });
-
+        if (!book) return res.status(404).json({ error: "Libro no encontrado" });
+        if (book.userId.toString() !== userId) return res.status(403).json({ error: "No autorizado para editar este libro" });
+        if (!category) return res.status(404).json({ error: "Categoría no encontrada" });
+        if (book.title == req.body.title && book.authors == req.body.authors) {
+            return res.status(200).json({ message: "No se realizaron cambios en el libro" });
+        }
         const bookUpd = await bookRepository.update(req.params.id, req.body);
         res.status(200).json( {message: "Libro editado exitosamente", bookUpd });
     }catch (err) {
@@ -88,8 +91,8 @@ export async function deleteBook(req, res) {
         const { id } = req.params;
         const userId = req.user.id;
         const book = await bookRepository.getBookById(id); 
-        if (!book) return res.status(404).json({ message: "Libro no encontrado" });
-        if (book.userId.toString() !== userId) return res.status(403).json({ message: "No autorizado para eliminar este libro" });
+        if (!book) return res.status(404).json({ error: "Libro no encontrado" });
+        if (book.userId.toString() !== userId) return res.status(403).json({ error: "No autorizado para eliminar este libro" });
 
         await bookRepository.delete(id);
         res.status(200).json({ message: "Libro eliminado correctamente" });
