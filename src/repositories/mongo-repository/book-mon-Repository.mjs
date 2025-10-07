@@ -23,12 +23,12 @@ const bookMongoRepository = {
     },
     async create(data) {
         try {
-            console.log('Creating book with data:', data);
+            
             const book = new Book(data)
             const bookCreado = await book.save();
             return bookCreado;
         } catch (error) {
-            console.log('No se pudo crear el libro en mongo', error)
+           throw error;
         }
     },
     async delete(id) {
