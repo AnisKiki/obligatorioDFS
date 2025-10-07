@@ -19,7 +19,7 @@ export async function createBook(req, res) {
         }
 
         const existing = await bookRepository.getBookByTitleAndAuthor(title, authors); //Verificar si ya existe el titulo
-        if (existing) return res.status(400).json({ error: "Libro ya existente" });
+        if (existing) return res.status(409).json({ error: "Libro ya existente" });
 
         const category = await categoryRepository.getCategoryById(categories); //Verificar si la categoría existe
         if (!category) return res.status(404).json({ error: "Categoría no encontrada" });
