@@ -1,14 +1,15 @@
 import bookRepository from "../../repositories/book-repository.mjs";
 import categoryRepository from "../../repositories/category-repository.mjs";
+import userRepository from "../../repositories/mongo-repository/user-mon-Repository.mjs";
 import "dotenv/config";
 
 export async function createBook(req, res) {
     try {
         const { title, authors, publishedDate, description, categories } = req.body;
-        const user = req.user.id;
-        const userPlan = req.user.plan;
+        const userId = req.user.id;
+        const user = await userRepository.getUserById(userId);
 
-        if (userPlan === "plus") {
+        if (user.plan === "plus") {
             const userBooks = await bookRepository.getBooksByUser(userId);
             if (userBooks.length >= 10) {
                 return res.status(403).json({
@@ -28,7 +29,7 @@ export async function createBook(req, res) {
             authors, 
             publishedDate, 
             description, 
-            userId: user,
+            userId: user._id,
             categories
         });
         res.status(201).json({
@@ -41,6 +42,7 @@ export async function createBook(req, res) {
             categories: book.categories
         });
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: "Ocurrió un error al crear el libro, intentelo de nuevo más tarde" });
     }
 }
