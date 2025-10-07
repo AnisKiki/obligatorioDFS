@@ -8,15 +8,15 @@ export async function cambiarPlan(req, res) {
         
         const viejo = await userRepository.getUserById(user.id);
         if (!viejo) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
         if (viejo.plan === plan) {
-            return res.status(409).json({ message: `El usuario ya tiene el plan ${plan}` });
+            return res.status(409).json({ error: `El usuario ya tiene el plan ${plan}` });
         }
 
         const userUpdated = await userRepository.update(user.id, { plan });
         if (!userUpdated) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
 
         res.status(200).json({ message: "Plan cambiado exitosamente", user: userUpdated });
