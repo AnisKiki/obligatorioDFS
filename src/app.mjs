@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectMongo } from "./config/mongo-config.mjs";
-import { connectRedis } from "./config/redis-config.mjs";
 import rutasPublicas from "./routes/v1/publicas.mjs";
 import rutasUsuario from "./routes/v1/users.mjs";
 import rutasaBooks from "./routes/v1/books.mjs";
@@ -18,7 +17,6 @@ app.use(xssSanitizer);
 (async () => {
     try {
         await connectMongo();
-        // await connectRedis();
         console.log('Databases connected');
     } catch (error) {
         console.error('Database connection failed:', error);
@@ -51,8 +49,8 @@ process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
-app.listen(port, () => {
-    console.log(`Server on port ${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`Server on port ${port}`);
+// });
 
 export default app;
