@@ -18,7 +18,7 @@ export const connectMongo = async () => {
             maxPoolSize: 10,
             serverSelectionTimeoutMS: 20000,
             socketTimeoutMS: 45000,
-            bufferCommands: false,
+            bufferCommands: true,
             dbName: MONGO_DB,
         })
         console.log('Levanto Mongo')

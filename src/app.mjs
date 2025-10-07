@@ -18,7 +18,7 @@ app.use(xssSanitizer);
 (async () => {
     try {
         await connectMongo();
-        await connectRedis();
+        // await connectRedis();
         console.log('Databases connected');
     } catch (error) {
         console.error('Database connection failed:', error);
