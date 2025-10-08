@@ -5,6 +5,6 @@ import { getListOfCategories } from "../../controller/v1/category-controller.mjs
 import reqValidate from "../../constants/request-validate-constants.mjs";
 const rutasCategorias = express.Router();
 
-rutasCategorias.get("/listar-categorias/", authMiddleware, getListOfCategories);
+rutasCategorias.get("/", authMiddleware, getListOfCategories);
 
 export default rutasCategorias;
