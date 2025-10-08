@@ -6,10 +6,10 @@ import { createBook, deleteBook, getListOfBooks, getBookDetails, editBook } from
 import reqValidate from "../../constants/request-validate-constants.mjs";
 const rutasLibros = express.Router();
 
-rutasLibros.post("/alta-libro/", authMiddleware, validateRequest(validateCreate, reqValidate.BODY), createBook);
-rutasLibros.delete("/baja-libro/:id", authMiddleware, validateRequest(validateDelete, reqValidate.PARAM), deleteBook);
-rutasLibros.get("/listar-libros/", authMiddleware, getListOfBooks);
-rutasLibros.get("/detalles-libro/:id", authMiddleware, validateRequest(validateDelete, reqValidate.PARAM), getBookDetails);
-rutasLibros.put("/editar-libro/:id", authMiddleware, validateRequest(validateUpdateParams, reqValidate.PARAM), validateRequest(validateUpdateBody, reqValidate.BODY), editBook);
+rutasLibros.post("/", authMiddleware, validateRequest(validateCreate, reqValidate.BODY), createBook);
+rutasLibros.delete("/:id", authMiddleware, validateRequest(validateDelete, reqValidate.PARAM), deleteBook);
+rutasLibros.get("/", authMiddleware, getListOfBooks);
+rutasLibros.get("/:id", authMiddleware, validateRequest(validateDelete, reqValidate.PARAM), getBookDetails);
+rutasLibros.put("/:id", authMiddleware, validateRequest(validateUpdateParams, reqValidate.PARAM), validateRequest(validateUpdateBody, reqValidate.BODY), editBook);
 
 export default rutasLibros;
