@@ -5,16 +5,27 @@ import User from "../../model/user.mjs";
 const userMongoRepository = {
     //Obtener todos los usuarios almacenados en la colección
     async getAll() {
-        return await User.find();
+        try {
+            return await User.find();
+        } catch (error) {
+            throw error;
+        }
     },
     //Obtener un usuario específico por su ID
     async getUserById(data) {
-        return User.findById(data).select("-password");
+        try {
+            return await User.findById(data).select("-password");
+        } catch (error) {
+            throw error;
+        }
     },
     //Buscar un usuario por su dirección de correo electrónico. necesitamos el usuario con su password
     async getUserByEmail(email) {
-        console.log('email', email)
-        return User.findOne({ email });
+        try {
+            return await User.findOne({ email });
+        } catch (error) {
+            throw error;
+        }
     },
     //Crear un nuevo usuario con los datos proporcionados
     async create(data) {
@@ -31,16 +42,28 @@ const userMongoRepository = {
     //Actualizar los datos de un usuario por su ID
     //El parámetro { new: true } indica que se devuelva el documento actualizado
     async update(id, data) {
-        return await User.findByIdAndUpdate(id, data, { new: true }).select("-password");
+        try {
+            return await User.findByIdAndUpdate(id, data, { new: true }).select("-password");
+        } catch (error) {
+            throw error;
+        }
     },
     // Eliminar un usuario por su ID
     async remove(id) {
-        return await User.findByIdAndDelete(id);
+        try {
+            return await User.findByIdAndDelete(id);
+        } catch (error) {
+            throw error;
+        }
     },
     async getUsers(data){
-        User.findOneAndReplace(id, data, {
-            new: true, runValidators: true
-        })
+        try {
+            return await User.findOneAndReplace(id, data, {
+                new: true, runValidators: true
+            });
+        } catch (error) {
+            throw error;
+        }
     }
 };
 // Exportamos el repositorio para poder utilizarlo en otras partes de la aplicación
