@@ -2,11 +2,18 @@ import Category from "../../model/category.mjs";
 
 const categoryMongoRepository = {
     async getAll() {
-        return await Category.find();
+        try {
+            return await Category.find();
+        } catch (error) {
+            throw error;
+        }
     },
     async getCategoryById(id) {
-        console.log('id', id)
-        return await Category.findOne({ _id: id });
+        try {
+            return await Category.findOne({ _id: id });
+        } catch (error) {
+            throw error;
+        }
     },
     async create(data) {
         try {
@@ -14,7 +21,7 @@ const categoryMongoRepository = {
             const categoryCreated = await category.save();
             return categoryCreated;
         } catch (error) {
-            console.log('No se pudo crear la categoría en mongo', error);
+            console.log('No se pudo crear la categoría en mongo', error); //ACAAAAAAAAAAAAAAAAAA
         }
     },
 };
