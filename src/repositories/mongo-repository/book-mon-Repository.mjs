@@ -50,7 +50,11 @@ const bookMongoRepository = {
         }
     },
     async delete(id) {
-        return await Book.findByIdAndDelete(id);
+        try {
+            await Book.findByIdAndDelete(id);
+        } catch (error) {
+            throw error;
+        }
     },
 };
 export default bookMongoRepository;

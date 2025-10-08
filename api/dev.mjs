@@ -3,4 +3,4 @@ import app from "../src/app.mjs";
 
 const port = process.env.port ?? 3000;
 
-app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`)); //ACAAAAAAAAAAAAAAAAAA
+app.listen(port, () => console.log(`Escuchando en el puerto: ${port}`));
