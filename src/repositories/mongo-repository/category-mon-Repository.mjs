@@ -9,7 +9,6 @@ const categoryMongoRepository = {
         }
     },
     async getCategoryById(id) {
-        console.log('id', id)
         try {
             return await Category.findOne({ _id: id });
         } catch (error) {
@@ -22,7 +21,7 @@ const categoryMongoRepository = {
             const categoryCreated = await category.save();
             return categoryCreated;
         } catch (error) {
-            console.log('No se pudo crear la categoría en mongo', error);
+            throw error;
         }
     },
 };

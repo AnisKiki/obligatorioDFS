@@ -3,7 +3,7 @@ import Book from "../../model/book.mjs";
 const bookMongoRepository = {
     async getAll() { //Si es de todos los libros, entonces usamos este, si es unicamente libros del usuario es getBooksByUser
         try {
-        return await Book.find();
+            return await Book.find();
         } catch (error) {
             throw error;
         }
@@ -16,7 +16,6 @@ const bookMongoRepository = {
         }
     },
     async getBookByTitleAndAuthor(title, authors) {
-        console.log('title:', title, 'authors:', authors)
         try {
             return await Book.findOne({ title, authors });
         } catch (error) {
@@ -43,7 +42,6 @@ const bookMongoRepository = {
     },
     async create(data) {
         try {
-            
             const book = new Book(data)
             const bookCreado = await book.save();
             return bookCreado;
@@ -52,7 +50,11 @@ const bookMongoRepository = {
         }
     },
     async delete(id) {
-        return await Book.findByIdAndDelete(id);
+        try {
+            await Book.findByIdAndDelete(id);
+        } catch (error) {
+            throw error;
+        }
     },
 };
 export default bookMongoRepository;

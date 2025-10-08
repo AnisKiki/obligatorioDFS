@@ -21,9 +21,9 @@ export const connectMongo = async () => {
             bufferCommands: true,
             dbName: MONGO_DB,
         })
-        console.log('Levanto Mongo')
+        console.log('Levanto Mongo'); //ACAAAAAAAAAAAAAAAAAA
     } catch (err) {
-        console.log('Hubo un error en la conexion de mongo', err);
+        console.log('Hubo un error en la conexion de mongo', err); //ACAAAAAAAAAAAAAAAAAA
         process.exit(1);
     }
 }
