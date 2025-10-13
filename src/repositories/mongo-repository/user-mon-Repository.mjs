@@ -35,7 +35,7 @@ const userMongoRepository = {
             delete userCreado._doc.password;
             return userCreado;
         } catch (error) {
-            console.log('No se pudo crear el usuario en mongo', error) //ACAAAAAAAAAAAAAAAAAA
+           throw error;
         }
     },
     

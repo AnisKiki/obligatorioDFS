@@ -21,7 +21,7 @@ const categoryMongoRepository = {
             const categoryCreated = await category.save();
             return categoryCreated;
         } catch (error) {
-            console.log('No se pudo crear la categoría en mongo', error); //ACAAAAAAAAAAAAAAAAAA
+            throw error;
         }
     },
 };
