@@ -25,7 +25,7 @@ const bookSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Category" 
     }],
-    fileurl: {
+    fileUrl: {
         type: String,
         required: true
     }, 
