@@ -6,9 +6,12 @@ import rutasUsuario from "./routes/v1/users.mjs";
 import rutasaBooks from "./routes/v1/books.mjs";
 import rutasCategorias from "./routes/v1/categories.mjs";
 import { xssSanitizer } from "./middlewares/sanitizer-middleware.mjs";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 app.use(xssSanitizer);

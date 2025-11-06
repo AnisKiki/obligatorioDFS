@@ -5,7 +5,7 @@ import "dotenv/config";
 
 export async function createBook(req, res) {
     try {
-        const { title, authors, publishedDate, description, categories } = req.body;
+        const { title, authors, publishedDate, description, categories, fileurl, fileId } = req.body;
         const userId = req.user.id;
         const user = await userRepository.getUserById(userId);
 
@@ -30,7 +30,9 @@ export async function createBook(req, res) {
             publishedDate, 
             description, 
             userId: user._id,
-            categories
+            categories,
+            fileurl,
+            fileId
         });
         res.status(201).json({
             id: book._id, 
