@@ -6,7 +6,7 @@ import "dotenv/config";
 export async function createBook(req, res) {
     console.log("Creating book with data:", req.body);
     try {
-        const { title, authors, publishedDate, description, categories, fileurl, fileId } = req.body;
+        const { title, authors, publishedDate, description, categories, fileUrl, fileId } = req.body;
         const userId = req.user.id;
         const user = await userRepository.getUserById(userId);
 
@@ -32,7 +32,7 @@ export async function createBook(req, res) {
             description, 
             userId: user._id,
             categories,
-            fileurl,
+            fileUrl,
             fileId
         });
         res.status(201).json({
@@ -45,6 +45,7 @@ export async function createBook(req, res) {
             categories: book.categories
         });
     } catch (err) {
+        console.error("Error creating book:", err);
         res.status(500).json({ error: "Ocurrió un error al crear el libro, intentelo de nuevo más tarde" });
     }
 }

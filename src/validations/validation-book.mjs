@@ -6,7 +6,9 @@ export const validateCreate = Joi.object({
     authors: Joi.string().min(3).max(40).required(),
     publishedDate: Joi.date().required(),
     description: Joi.string().min(3).max(1000).required(),
-    categories: Joi.string().min(3).max(40).required()
+    categories: Joi.string().min(3).max(40).required(),
+    fileUrl: Joi.string().uri().required(),
+    fileId: Joi.string().required()
 }).messages({
     "string.empty": "El campo {#label} es obligatorio",
     "string.pattern.base": "El campo {#label} debe ser un email válido",
