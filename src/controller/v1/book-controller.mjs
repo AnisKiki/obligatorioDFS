@@ -4,6 +4,7 @@ import userRepository from "../../repositories/mongo-repository/user-mon-Reposit
 import "dotenv/config";
 
 export async function createBook(req, res) {
+    console.log("Creating book with data:", req.body);
     try {
         const { title, authors, publishedDate, description, categories, fileurl, fileId } = req.body;
         const userId = req.user.id;
