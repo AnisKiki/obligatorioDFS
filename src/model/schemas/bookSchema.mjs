@@ -25,8 +25,15 @@ const bookSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Category" 
     }],
-}, 
-{ 
+    fileurl: {
+        type: String,
+        required: true
+    }, 
+    fileId: {
+        type: String,
+        required: true
+}
+}, {
     timestamps: true
 });
 //Para que no se repitan libros de titulo y autor
