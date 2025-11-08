@@ -29,7 +29,7 @@ export async function login(req, res) {
         const valid = await bcrypt.compare(password, user.password);
         if (!valid) return res.status(401).json({ error: "Email o contraseña no válidos" });
 
-        const token = jwt.sign({ id: user._id, email: user.email , role: user.role }, SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ id: user._id, email: user.email , role: user.role, plan: user.plan }, SECRET, { expiresIn: "1h" });
         res.json({ token });
     } catch (err) {
         res.status(500).json({ error: "Ocurrió un error al iniciar sesión, intentelo de nuevo más tarde" });
