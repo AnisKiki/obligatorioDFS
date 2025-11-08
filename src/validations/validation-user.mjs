@@ -5,7 +5,8 @@ export const validateAuth = Joi.object({
     email: Joi.string().regex(/.+@.+\..+/).required(),
     iat: Joi.number().integer(),
     exp: Joi.number().integer(),
-    role: Joi.string().valid("user", "admin").required()
+    role: Joi.string().valid("user", "admin").required(),
+    plan: Joi.string().valid("premium", "plus").required()
 }).messages({
     "string.empty": "El campo {#label} es obligatorio",
     "string.pattern.base": "El campo {#label} debe ser un email válido",
