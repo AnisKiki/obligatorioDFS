@@ -2,10 +2,10 @@ import Joi from "joi"
 const MinFechLibro = "01-01-0001";
 
 export const validateCreate = Joi.object({
-    title: Joi.string().min(3).max(40).required(),
-    authors: Joi.string().min(3).max(40).required(),
+    title: Joi.string().min(3).max(2248).required(),
+    authors: Joi.string().min(3).max(64).required(),
     publishedDate: Joi.date().required(),
-    description: Joi.string().min(3).max(1000).required(),
+    description: Joi.string().min(3).max(1024).required(),
     categories: Joi.string().min(3).max(40).required(),
     fileUrl: Joi.string().uri().required(),
     fileId: Joi.string().required()
