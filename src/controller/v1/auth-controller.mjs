@@ -13,7 +13,7 @@ export async function signup(req, res) {
         
         const hashed = await bcrypt.hash(password, 10); //Hashear contraseña
         const user = await userRepository.create({ name, email, password: hashed }); //Crear usuario
-        const token = jwt.sign({ id: user._id, email: user.email , role: user.role }, SECRET, { expiresIn: "1h" }); //Responder sin la contraseña
+        const token = jwt.sign({ id: user._id, email: user.email , role: user.role, plan: user.plan }, SECRET, { expiresIn: "1h" }); //Responder sin la contraseña
         
         res.status(201).json({token});
     } catch (err) {
